@@ -1,0 +1,33 @@
+<ng-container *ngIf="formulario?.identificador">
+   <div class="formulario-header">
+      <h2>Formulário de Bancada</h2>
+      <div class="formulario-info">
+         <ng-container *ngIf="formulario?.identificador">
+            <p><strong>Identificador:</strong> {{ formulario.identificador }}</p>
+         </ng-container>
+      </div>
+   </div>
+</ng-container>
+
+<ng-container *ngIf="formulario?.placas">
+   <ng-container *ngIf="formulario?.placas[0].formularioInterno; else semFormularioInterno">
+      <div *ngFor="let placa of formulario.placas; let i = index">
+         <ng-container *ngIf="placa?.formularioInterno">
+            <br>
+            <strong>{{ placa.numero | uppercase }}</strong>
+            <br>
+            <div>Lote: {{ placa.formularioInterno.lote }}</div>
+            <div>Termômetro Ambiente: {{ placa.formularioInterno.termometroAmbiente }}</div>
+         </ng-container>
+
+      </div>
+   </ng-container>
+
+   <ng-template #semFormularioInterno>
+      <app-form-interno-psc [formularioBancada]="formulario"></app-form-interno-psc>
+   </ng-template>
+
+</ng-container>
+
+
+

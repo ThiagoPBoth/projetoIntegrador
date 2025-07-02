@@ -1,0 +1,64 @@
+
+<div class="formulario-container">
+   <div class="formulario-header">
+      <h2>Formulário de Bancada</h2>
+      <div class="formulario-info">
+         <ng-container *ngIf="formulario?.identificador">
+            <p><strong>Identificador:</strong> {{ formulario.identificador }}</p>
+         </ng-container>
+      </div>
+   </div>
+
+   <div class="placa-navegacao" *ngIf="formulario?.placas?.length > 0">
+      <button [disabled]="placaIndex === 0" (click)="placaAnterior()" class="btn-navegacao">
+         <
+      </button>
+      <span class="placa-titulo">{{ placaAtual?.numero | uppercase}}</span>
+      <button [disabled]="placaIndex >= formulario.placas.length - 1" (click)="proximaPlaca()" class="btn-navegacao">
+         >
+      </button>
+   </div>
+
+
+   <div class="placa-grid-container" *ngIf="placaAtual">
+      <!-- Cabeçalho de colunas -->
+      <div class="coluna-header"></div> <!-- Célula vazia no canto superior esquerdo -->
+      <div *ngFor="let num of numerosColuna" class="coluna-header">
+         {{ num }}
+      </div>
+
+      <!-- Linhas da matriz -->
+
+         <ng-container *ngFor="let linha of matrizPlaca; let i = index">
+            <!-- Cabeçalho de linha -->
+            <div class="linha-header">{{ letrasLinhas[i] }}</div>
+
+            <!-- Células da linha -->
+            <div *ngFor="let celula of linha; let j = index"
+                 class="celula"
+                 [ngClass]="getClasseCelula(celula)"
+                 [ngStyle]="getEstiloCelula(celula)"
+                 [title]="getTooltipCelula(celula)">
+               <div class="celula-conteudo">
+                  <div class="celula-conteudo" [innerHTML]="getTextoCelula(celula)"></div>
+               </div>
+            </div>
+         </ng-container>
+      </div>
+
+
+   <!-- Legenda de protocolos -->
+   <div class="protocolos-legenda" *ngIf="legendasProtocolos.length > 0">
+      <h3>Legenda de Protocolos</h3>
+      <div class="legenda-grid">
+         <div *ngFor="let legenda of legendasProtocolos" class="legenda-item">
+            <div class="legenda-cor" [style.background-color]="legenda.cor"></div>
+            <span class="legenda-texto">{{ truncarTexto(legenda.protocolo) }}</span>
+         </div>
+      </div>
+   </div>
+
+   <div class="sem-placas" *ngIf="!formulario?.placas?.length">
+      <p>Nenhuma placa disponível para exibição.</p>
+   </div>
+</div>

@@ -1,0 +1,178 @@
+<div *ngFor="let placa of formTeste.placas; let i = index" class="placa-item">
+   <br>
+   <!-- Cabeçalho clicável da placa -->
+   <div class="placa-header" (click)="toggleExpansao(i)">
+      <strong>{{ placa.numero | uppercase }}</strong>
+      <span class="seta">
+         <div *ngIf="placa.formularioInterno">salvo</div>
+         {{ exibirForm[i] ? '▼' : '►' }}
+      </span>
+   </div>
+
+
+
+   <div *ngIf="exibirForm[i]" class="placa-content">
+   <!-- Formulário individual para cada placa -->
+   <form #placaForm="ngForm" (ngSubmit)="salvar(i, lote.value, termometroAmbiente.value)">
+
+      <app-material-input
+         label="Lote"
+         [required]="true"
+         kind="input-text"
+      >
+         <input
+            type="text"
+            #lote
+            required
+            ngModel
+            name="lote{{i}}"
+            class="form-control"
+            placeholder="Digite o lote aqui"
+         >
+      </app-material-input>
+      <br>
+      <app-material-input
+         label="Termômetro Ambiente"
+         [required]="true"
+         kind="input-text"
+      >
+         <input
+            type="text"
+            #termometroAmbiente
+            name="termometroAmbiente{{i}}"
+            required
+            ngModel
+            placeholder="Digite o Termômetro Ambiente aqui"
+         >
+      </app-material-input>
+
+      <br>
+
+      <app-material-input
+         label="Incubadora"
+         [required]="true"
+         kind="input-text"
+      >
+         <input
+            type="text"
+            #incubadora
+            name="incubadora{{i}}"
+            required
+            ngModel
+            placeholder="Digite a incubadora aqui"
+         >
+      </app-material-input>
+      <br>
+      <app-material-input
+         label="Local de Armazenamento"
+         [required]="true"
+         kind="input-text"
+      >
+         <input
+            type="text"
+            #localArmazenamento
+            name="localArmazenamento{{i}}"
+            required
+            ngModel
+            placeholder="Digite o Local de Armazenament aqui"
+         >
+      </app-material-input>
+<br>
+      <app-material-input
+         label="Temperatura Inicial Ambiente"
+         [required]="true"
+         kind="input-text"
+      >
+         <input
+            required
+            ngModel
+            placeholder="Digite a Temperatura Inicial Ambiente aqui"
+         [allowNegativeNumbers]="true"
+         mask="separator2"
+         maxlength="7"
+         suffix="°"
+         decimalMarker=",">
+      </app-material-input>
+
+      <br>
+
+      <app-material-input
+         label="Validade"
+      >
+         <input
+            required
+            ngModel
+            type="datetime-local"
+                name="validade{{i}}"
+                placeholder="Validade"
+                max="9999-12-31">
+      </app-material-input>
+
+      <br>
+      <app-material-input
+         label="Data da Prova"
+      >
+         <input
+            required
+            ngModel
+            type="datetime-local"
+            name="dataProva{{i}}"
+            placeholder="Data da Prova"
+            max="9999-12-31">
+      </app-material-input>
+
+      <br>
+
+      <app-material-input
+         label="Analista"
+      >
+         <ng-select placeholder="Analista"
+                    [closeOnSelect]="true"
+                    [id]="i"
+                    name="analista{{i}}"
+                    [multiple]="false" bindValue="idUsuario"
+                    [items]="rtsLaboratorio" required bindLabel="nome"
+                    [clearable]="false" [clearSearchOnAdd]="true">
+         </ng-select>
+         <div class="valid-feedback">Tudo certo! campo preenchido...</div>
+         <div class="invalid-feedback">Ops... parece que você esqueceu este campo.</div>
+      </app-material-input>
+
+      <br>
+
+      <app-material-input
+         label="Supervisor"
+      >
+         <ng-select placeholder="Supervisor"
+                    [closeOnSelect]="true"
+                    [id]="i"
+                    name="supervisor{{i}}"
+                    [multiple]="false" bindValue="idUsuario"
+                    [items]="rtsLaboratorio" required bindLabel="nome"
+                    [clearable]="false" [clearSearchOnAdd]="true">
+         </ng-select>
+         <div class="valid-feedback">Tudo certo! campo preenchido...</div>
+         <div class="invalid-feedback">Ops... parece que você esqueceu este campo.</div>
+      </app-material-input>
+
+      <br>
+
+      <button
+         class="btn btn-primary btn-pdsa"
+         type="submit"
+      >
+         Salvar
+      </button>
+      <div *ngIf="placa.formularioInterno">salvo</div>
+   </form>
+      </div>
+</div>
+
+<br><br><br><br>
+<button
+   class="btn btn-primary btn-pdsa"
+   type="button"
+   (click)="salvarForms()"
+>
+   Enviar Formulário
+</button>

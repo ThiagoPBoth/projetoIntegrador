@@ -1,0 +1,28 @@
+
+<div class="container">
+   <pdsa-nav (activeTabChanged)="changeTab($event)">
+      <pdsa-tab [active]="true" title="Placas">
+
+         <app-pdsa-card>
+            <app-placa-psc-auj [formulario]="formularioBancada"></app-placa-psc-auj>
+         </app-pdsa-card>
+      </pdsa-tab>
+
+
+
+
+      <pdsa-tab [active]="false" title="Formulários Internos">
+         <app-pdsa-card>
+            <app-visualizar-form-interno-psc [formulario]="formularioBancada"></app-visualizar-form-interno-psc>
+         </app-pdsa-card>
+      </pdsa-tab>
+
+
+      <pdsa-tab [active]="false" title="Resultados">
+         <app-pdsa-card>
+            resultados
+         </app-pdsa-card>
+      </pdsa-tab>
+
+   </pdsa-nav>
+</div>
